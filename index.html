@@ -15,7 +15,7 @@
 
         // --- POINTS OF INTEREST -------------------------------------------------
         const locations = [
-{ position: { lat: 38.9482, lng: -119.9606 }, label: "Tahoe Sports", address: "900 Ski Run Blvd, South Lake Tahoe, CA 96150" },
+          { position: { lat: 38.9482, lng: -119.9606 }, label: "Tahoe Sports", address: "900 Ski Run Blvd, South Lake Tahoe, CA 96150" },
           { position: { lat: 38.9544, lng: -120.1020 }, label: "Emerald Bay", address: "Emerald Bay Rd, South Lake Tahoe, CA 96150" },
           { position: { lat: 38.9428, lng: -120.0659 }, label: "Baldwin Beach", address: "Baldwin Beach, South Lake Tahoe, CA 96150" },
           { position: { lat: 38.9407, lng: -120.0497 }, label: "Kiva Beach", address: "Kiva Beach, South Lake Tahoe, CA 96150" },
@@ -23,12 +23,12 @@
           { position: { lat: 38.92307, lng: -120.052 }, label: "Fallen Leaf Lake Trail", address: "Fallen Leaf Lake Rd, South Lake Tahoe, CA 96150" },
           { position: { lat: 38.94363, lng: -120.1 }, label: "Cascade Falls Trail", address: "Cascade Rd, South Lake Tahoe, CA 96150" },
           { position: { lat: 38.95672520589946, lng: -119.93436942198815 }, label: "Van Sickle Bi-State Park", address: "Van Sickle Trailhead, South Lake Tahoe, CA 96150" },
-  		  { "position": { "lat": 38.95020757542417, "lng": -119.95931677721636 }, "label": "Riva Grill", "address": "900 Ski Run Blvd, South Lake Tahoe, CA 96150" },
-		  { "position": { "lat": 38.96003640648525, "lng": -119.9422219176944 }, "label": "Harveys Casino", "address": "18 Hwy 50, Stateline, NV 89449" },
-		  { "position": { "lat": 38.9079139287962, "lng": -120.00012013955993 }, "label": "Ernie's Coffee Shop", "address": "1207 Emerald Bay Rd, South Lake Tahoe, CA 96150" },
-		  { "position": { "lat": 38.93022509459562 , "lng": -119.98051460789016 }, "label": "Free Bird Café", "address": "2750 Lake Tahoe Blvd, South Lake Tahoe, CA 96150" },
-		  { "position": { "lat": 38.95451067689277, "lng": -119.94385748005828 }, "label": "Village Center South Lake Tahoe", "address": "4000 Lake Tahoe Blvd, South Lake Tahoe, CA 96150" },
-		  { "position": { "lat": 38.95652699802083, "lng": -119.94265335790159 }, "label": "Heavenly Village", "address": "1001 Heavenly Village Way, South Lake Tahoe, CA 96150" }
+          { position: { lat: 38.95020757542417, lng: -119.95931677721636 }, label: "Riva Grill", address: "900 Ski Run Blvd, South Lake Tahoe, CA 96150" },
+          { position: { lat: 38.96003640648525, lng: -119.9422219176944 }, label: "Harveys Casino", address: "18 Hwy 50, Stateline, NV 89449" },
+          { position: { lat: 38.9079139287962, lng: -120.00012013955993 }, label: "Ernie's Coffee Shop", address: "1207 Emerald Bay Rd, South Lake Tahoe, CA 96150" },
+          { position: { lat: 38.93022509459562, lng: -119.98051460789016 }, label: "Free Bird Café", address: "2750 Lake Tahoe Blvd, South Lake Tahoe, CA 96150" },
+          { position: { lat: 38.95451067689277, lng: -119.94385748005828 }, label: "Village Center South Lake Tahoe", address: "4000 Lake Tahoe Blvd, South Lake Tahoe, CA 96150" },
+          { position: { lat: 38.95652699802083, lng: -119.94265335790159 }, label: "Heavenly Village", address: "1001 Heavenly Village Way, South Lake Tahoe, CA 96150" }
         ];
 
         locations.forEach((loc) => {
@@ -51,9 +51,17 @@
               labelOrigin: new google.maps.Point(0, -3)
             }
           });
-
+	  
+	  // build a live Google Maps link for the address
+          const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address)}`;
+         
           const infoWindow = new google.maps.InfoWindow({
-            content: `<div><strong>${loc.label}</strong><br>${loc.address}</div>`
+            content: `
+              <div>
+                <strong>${loc.label}</strong><br>
+                <a href="${mapsUrl}" target="_blank">${loc.address}</a>
+              </div>
+            `
           });
 
           marker.addListener("click", () => {
